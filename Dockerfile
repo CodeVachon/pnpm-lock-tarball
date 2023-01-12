@@ -1,4 +1,4 @@
-FROM node:18.6-slim AS base
+FROM node:18-slim AS base
 RUN apt-get update
 RUN corepack enable && corepack prepare pnpm@latest --activate
 ENV PNPM_HOME=/root/.local/share/pnpm
@@ -9,6 +9,8 @@ WORKDIR /app
 COPY package.json .
 COPY pnpm-lock.yaml .
 COPY app.js .
+RUN node -v
+RUN pnpm -v
 RUN pnpm install
 
 CMD node app.js
